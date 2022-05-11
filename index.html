@@ -1,0 +1,198 @@
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Trispace:wght@500&display=swap" rel="stylesheet"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>Upcoming Matches</title>
+</head>
+<body id="body">
+<div id="status">
+<div id="full-status">
+<p id="json">hello</p>
+</div>
+</div>
+<button id="get-status" onclick="showStatus()">more info</button>
+<div id="time-wrapper">
+<div id="countdown-wrapper">
+<p class="display">current time</p>
+<div id="countdown-box">
+<p id="countdown"></p>
+</div>
+</div>
+<div id="match-wrapper">
+<p class="display">next match time</p>
+<div id="match-box">
+<p class = "display" id="current_match"></p>
+</div>
+</div>
+<div id="remaining-time-wrapper">
+<p class="display" id="next-match">next match in</p>
+<div id="remaining-time-box">
+<p id="remaining_time"></p>
+</div>
+</div>
+</div>
+<div id="number-wrapper">
+<div class="number-box">
+</div>
+</div>
+</body>
+<script type="text/javascript" src="./js/scanner3.js"></script>
+<script type="text/javascript" src="./js/misc-functions.js"></script>
+<style>
+body {
+margin: 0;
+background-color: #3470d1;
+}
+#status {
+position: fixed;
+top: -100%;
+width: 100%;
+height: 100%;
+background-color: #3470d1;
+z-index: 99;
+transition: top 1s ease;
+}
+#full-status {
+display: none;
+}
+#json {
+font-family: 'Trispace', sans-serif;
+color: white;
+font-size: 15px;
+margin: 5px;
+}
+#get-status {
+position: fixed;
+float: right;
+right: 0;
+bottom: 0;
+margin: 5px;
+background-color: white;
+border: none;
+border-radius: 7px;
+font-family: 'Trispace', sans-serif;
+font-size: 20px;
+color: #3470d1;
+cursor: pointer;
+z-index: 100;
+}
+#time-wrapper {
+display: inline-block;
+width: 90.5%;
+}
+.display {
+position: relative;
+margin: 5px;
+color: white;
+font-size: 50px;
+font-family: 'Trispace', sans-serif;
+text-align: center;
+}
+#countdown-wrapper {
+display: inline-block;
+position: relative;
+}
+#countdown-box {
+display: inline-block;
+position: relative;
+width: auto;
+padding-right: 20px;
+padding-left: 20px;
+background-color: white;
+border-radius: 25px;
+}
+#countdown {
+display: block;
+height: auto;
+width: 50%;
+margin: 0;
+width: auto;
+position: relative;
+text-align: center;
+color: #3470d1;
+font-size: 150px;
+font-family: 'Anton', sans-serif;
+}
+#match-wrapper {
+display: inline-block;
+float: right;
+}
+#match-box {
+display: inline-block;
+position: relative;
+width: auto;
+padding-right: 20px;
+padding-left: 20px;
+background-color: white;
+border-radius: 25px;
+}
+#current_match {
+display: block;
+height: auto;
+margin: 0;
+width: auto;
+position: relative;
+text-align: center;
+color: #3470d1;
+font-size: 150px;
+font-family: 'Anton', sans-serif;
+}
+#remaining-time-wrapper {
+display: inline-block;
+}
+#remaining-time-box {
+display: inline-block;
+position: relative;
+left: 50%;
+transform: translateX(-50%);
+width: auto;
+padding-right: 20px;
+padding-left: 20px;
+background-color: white;
+border-radius: 25px;
+}
+#remaining_time {
+display: block;
+height: auto;
+margin: 0;
+width: auto;
+position: relative;
+text-align: center;
+color: #3470d1;
+font-size: 150px;
+font-family: 'Anton', sans-serif;
+transition: all 0.5s ease;
+}
+#number-wrapper {
+display: inline-block;
+float: right;
+}
+.number-box {
+display: inline-block;
+position: relative;
+margin-top: 64px;
+
+width: auto;
+padding-right: 20px;
+padding-left: 20px;
+background-color: white;
+border-radius: 25px;
+}
+.current_number {
+display: block;
+height: auto;
+margin: 0;
+width: auto;
+position: relative;
+text-align: center;
+color: #3470d1;
+font-size: 150px;
+font-family: 'Anton', sans-serif;
+}
+</style>
+</html>
