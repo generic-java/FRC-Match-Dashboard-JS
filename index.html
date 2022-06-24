@@ -1,5 +1,6 @@
 <html>
 <head>
+<link rel="icon" type="image/x-icon" href="Logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Trispace:wght@500&display=swap" rel="stylesheet"> 
@@ -7,16 +8,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<title>Upcoming Matches</title>
+<title>Match Dashboard</title>
 </head>
 <body id="body">
+<div id="loading">
+<img src="SVGLogo.svg" id="loadingLogo"></img>
+<p id="loadingText" class="display">fetching data...</p>
+</div>
 <div id="status">
 <div id="full-status">
-<p id="json">hello</p>
+<p id="json"></p>
+<button id="debug" onclick="activateDebugging()">click to activate debug mode</button>
 </div>
 </div>
 <button id="get-status" onclick="showStatus()">more info</button>
 <div id="time-wrapper">
+<div id="wrapper1">
 <div id="countdown-wrapper">
 <p class="display">current time</p>
 <div id="countdown-box">
@@ -24,29 +31,59 @@
 </div>
 </div>
 <div id="match-wrapper">
-<p class="display">next match time</p>
+<p class="display" id="caption1">upcoming match</p>
 <div id="match-box">
-<p class = "display" id="current_match"></p>
+<p id="current_match"></p>
+</div>
+<p class="display" id="caption2">match after upcoming</p>
+<div id="match-after-box">
+<p id="match_after"></p>
+</div>
 </div>
 </div>
 <div id="remaining-time-wrapper">
-<p class="display" id="next-match">next match in</p>
+<p class="display" id="next-match">upcoming match in</p>
 <div id="remaining-time-box">
 <p id="remaining_time"></p>
 </div>
 </div>
 </div>
 <div id="number-wrapper">
-<div class="number-box">
-</div>
 </div>
 </body>
-<script type="text/javascript" src="./js/scanner3.js"></script>
+<script type="text/javascript" src="./js/scanner4.js"></script>
 <script type="text/javascript" src="./js/misc-functions.js"></script>
 <style>
 body {
 margin: 0;
 background-color: #3470d1;
+overflow: hidden;
+}
+#loading {
+position: fixed;
+background-color: #53698e;
+display: block;
+width: 100%;
+height: 100%;
+z-index: 200;
+top: 0%;
+transition: top 2s ease;
+}
+#loadingLogo {
+position: relative;
+left: 50%;
+top: 50%;
+width: 50%;
+height: 50%;
+transform: translate(-50%, -50%);
+}
+#loadingText {
+text-align: center;
+position: relative;
+top: 30%;
+color: #deb200;
+opacity: 100%;
+transition: opacity 0.5s ease;
 }
 #status {
 position: fixed;
@@ -68,8 +105,8 @@ margin: 5px;
 }
 #get-status {
 position: fixed;
-float: right;
-right: 0;
+float: left;
+left: 0;
 bottom: 0;
 margin: 5px;
 background-color: white;
@@ -81,9 +118,29 @@ color: #3470d1;
 cursor: pointer;
 z-index: 100;
 }
+#debug {
+margin: 5px;
+background-color: white;
+border: none;
+border-radius: 7px;
+font-family: 'Trispace', sans-serif;
+font-size: 20px;
+color: #3470d1;
+cursor: pointer;
+z-index: 100;
+}
+#wrapper1 {
+display: inline-block;
+position: relative;
+left: 50%;
+transform: translateX(-50%);
+}
 #time-wrapper {
 display: inline-block;
-width: 90.5%;
+width: 94%;
+position: relative;
+top: 50%;
+transform: translateY(-55%);
 }
 .display {
 position: relative;
@@ -96,6 +153,7 @@ text-align: center;
 #countdown-wrapper {
 display: inline-block;
 position: relative;
+float: left;
 }
 #countdown-box {
 display: inline-block;
@@ -115,12 +173,14 @@ width: auto;
 position: relative;
 text-align: center;
 color: #3470d1;
-font-size: 150px;
+font-size: 140px;
 font-family: 'Anton', sans-serif;
 }
 #match-wrapper {
-display: inline-block;
+display: flex;
+align-items: stretch;
 float: right;
+margin-left: 50px;
 }
 #match-box {
 display: inline-block;
@@ -130,6 +190,26 @@ padding-right: 20px;
 padding-left: 20px;
 background-color: white;
 border-radius: 25px;
+left: 50%;
+transform: translateX(-50%);
+}
+#match-after-box {
+display: inline-block;
+position: relative;
+width: auto;
+height: auto;
+padding-right: 20px;
+padding-left: 20px;
+background-color: white;
+border-radius: 25px;
+left: 50%;
+transform: translateX(-50%);
+}
+#caption1 {
+font-size: 30px;
+}
+#caption2 {
+font-size: 30px;
 }
 #current_match {
 display: block;
@@ -139,11 +219,18 @@ width: auto;
 position: relative;
 text-align: center;
 color: #3470d1;
-font-size: 150px;
+font-size: 70px;
 font-family: 'Anton', sans-serif;
 }
-#remaining-time-wrapper {
+#match_after {
+font-size: 70px;
+font-family: 'Anton', sans-serif;
 display: inline-block;
+margin: 5px;
+}
+#remaining-time-wrapper {
+display: block;
+left: 50%;
 }
 #remaining-time-box {
 display: inline-block;
@@ -155,6 +242,12 @@ padding-right: 20px;
 padding-left: 20px;
 background-color: white;
 border-radius: 25px;
+}
+#next-match {
+display: inline-block;
+position: relative;
+left: 50%;
+transform: translatex(-50%);
 }
 #remaining_time {
 display: block;
@@ -171,17 +264,18 @@ transition: all 0.5s ease;
 #number-wrapper {
 display: inline-block;
 float: right;
+width: 6%;
+height: 100%;
 }
 .number-box {
-display: inline-block;
+display: block;
 position: relative;
-margin-top: 64px;
-
-width: auto;
-padding-right: 20px;
-padding-left: 20px;
+margin-top: 5px;
+width: 80%;
+height: auto;
 background-color: white;
 border-radius: 25px;
+float: right;
 }
 .current_number {
 display: block;
@@ -191,7 +285,7 @@ width: auto;
 position: relative;
 text-align: center;
 color: #3470d1;
-font-size: 150px;
+font-size: 25px;
 font-family: 'Anton', sans-serif;
 }
 </style>
